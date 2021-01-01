@@ -1,0 +1,1 @@
+Sitemap: https://atcolab.github.io/hello_fastpages/sitemap.xml
