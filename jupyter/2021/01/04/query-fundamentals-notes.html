@@ -1,0 +1,4844 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Query Fundamentals | hello_fastpages</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Query Fundamentals" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<meta property="og:description" content="An easy to use blogging platform with support for Jupyter Notebooks." />
+<link rel="canonical" href="https://atcolab.github.io/hello_fastpages/jupyter/2021/01/04/query-fundamentals-notes.html" />
+<meta property="og:url" content="https://atcolab.github.io/hello_fastpages/jupyter/2021/01/04/query-fundamentals-notes.html" />
+<meta property="og:site_name" content="hello_fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-04T00:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"An easy to use blogging platform with support for Jupyter Notebooks.","url":"https://atcolab.github.io/hello_fastpages/jupyter/2021/01/04/query-fundamentals-notes.html","@type":"BlogPosting","headline":"Query Fundamentals","dateModified":"2021-01-04T00:00:00-06:00","datePublished":"2021-01-04T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://atcolab.github.io/hello_fastpages/jupyter/2021/01/04/query-fundamentals-notes.html"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/hello_fastpages/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://atcolab.github.io/hello_fastpages/feed.xml" title="hello_fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/hello_fastpages/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/hello_fastpages/">hello_fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/hello_fastpages/about/">About Me</a><a class="page-link" href="/hello_fastpages/search/">Search</a><a class="page-link" href="/hello_fastpages/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Query Fundamentals</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-01-04T00:00:00-06:00" itemprop="datePublished">
+        Jan 4, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      15 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/hello_fastpages/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/atcolab/hello_fastpages/tree/master/_notebooks/2021-01-04-query-fundamentals-notes.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/hello_fastpages/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/atcolab/hello_fastpages/master?filepath=_notebooks%2F2021-01-04-query-fundamentals-notes.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/hello_fastpages/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/atcolab/hello_fastpages/blob/master/_notebooks/2021-01-04-query-fundamentals-notes.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/hello_fastpages/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Select-From">Select From </a></li>
+<li class="toc-entry toc-h2"><a href="#Derived-Columns">Derived Columns </a></li>
+<li class="toc-entry toc-h2"><a href="#Filtering-with-WHERE">Filtering with WHERE </a></li>
+<li class="toc-entry toc-h2"><a href="#AND,-OR,-and-NOT">AND, OR, and NOT </a></li>
+<li class="toc-entry toc-h2"><a href="#Null-Handling">Null Handling </a></li>
+<li class="toc-entry toc-h2"><a href="#IN,-BETWEEEN,-and-LIKE">IN, BETWEEEN, and LIKE </a></li>
+<li class="toc-entry toc-h2"><a href="#ORDER-BY">ORDER BY </a></li>
+<li class="toc-entry toc-h2"><a href="#SQL-Order-of-execution">SQL Order of execution </a></li>
+<li class="toc-entry toc-h2"><a href="#LIMIT-and-OFFSET">LIMIT and OFFSET </a></li>
+<li class="toc-entry toc-h2"><a href="#DISTINCT">DISTINCT </a></li>
+<li class="toc-entry toc-h2"><a href="#Case-Expressions">Case Expressions </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-01-04-query-fundamentals-notes.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Select-From">
+<a class="anchor" href="#Select-From" aria-hidden="true"><span class="octicon octicon-link"></span></a>Select From<a class="anchor-link" href="#Select-From"> </a>
+</h2>
+<blockquote>
+<ul>
+<li>Select every column from the customer table</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * from customer
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+        <th>store_id</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+        <th>address_id</th>
+        <th>activebool</th>
+        <th>create_date</th>
+        <th>last_update</th>
+        <th>active</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>MARY</td>
+        <td>SMITH</td>
+        <td>MARY.SMITH@sakilacustomer.org</td>
+        <td>5</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>1</td>
+        <td>PATRICIA</td>
+        <td>JOHNSON</td>
+        <td>PATRICIA.JOHNSON@sakilacustomer.org</td>
+        <td>6</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>1</td>
+        <td>LINDA</td>
+        <td>WILLIAMS</td>
+        <td>LINDA.WILLIAMS@sakilacustomer.org</td>
+        <td>7</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>2</td>
+        <td>BARBARA</td>
+        <td>JONES</td>
+        <td>BARBARA.JONES@sakilacustomer.org</td>
+        <td>8</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>1</td>
+        <td>ELIZABETH</td>
+        <td>BROWN</td>
+        <td>ELIZABETH.BROWN@sakilacustomer.org</td>
+        <td>9</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>Selecting a single column <br>
+</li>
+<li>Select email column from customer table</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select email from customer
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>email</th>
+    </tr>
+    <tr>
+        <td>MARY.SMITH@sakilacustomer.org</td>
+    </tr>
+    <tr>
+        <td>PATRICIA.JOHNSON@sakilacustomer.org</td>
+    </tr>
+    <tr>
+        <td>LINDA.WILLIAMS@sakilacustomer.org</td>
+    </tr>
+    <tr>
+        <td>BARBARA.JONES@sakilacustomer.org</td>
+    </tr>
+    <tr>
+        <td>ELIZABETH.BROWN@sakilacustomer.org</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>Selecting multple columns from a table <br>
+</li>
+<li>Selecting first name, last name, and email from the customer table</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name, last_name, email from customer
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+    </tr>
+    <tr>
+        <td>MARY</td>
+        <td>SMITH</td>
+        <td>MARY.SMITH@sakilacustomer.org</td>
+    </tr>
+    <tr>
+        <td>PATRICIA</td>
+        <td>JOHNSON</td>
+        <td>PATRICIA.JOHNSON@sakilacustomer.org</td>
+    </tr>
+    <tr>
+        <td>LINDA</td>
+        <td>WILLIAMS</td>
+        <td>LINDA.WILLIAMS@sakilacustomer.org</td>
+    </tr>
+    <tr>
+        <td>BARBARA</td>
+        <td>JONES</td>
+        <td>BARBARA.JONES@sakilacustomer.org</td>
+    </tr>
+    <tr>
+        <td>ELIZABETH</td>
+        <td>BROWN</td>
+        <td>ELIZABETH.BROWN@sakilacustomer.org</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>remember to add ERDiagram here</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>An aliasing example</li>
+<li>Changing column names</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name as "First Name", last_name as "Last Name" from customer
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+    <tr>
+        <td>MARY</td>
+        <td>SMITH</td>
+    </tr>
+    <tr>
+        <td>PATRICIA</td>
+        <td>JOHNSON</td>
+    </tr>
+    <tr>
+        <td>LINDA</td>
+        <td>WILLIAMS</td>
+    </tr>
+    <tr>
+        <td>BARBARA</td>
+        <td>JONES</td>
+    </tr>
+    <tr>
+        <td>ELIZABETH</td>
+        <td>BROWN</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Derived-Columns">
+<a class="anchor" href="#Derived-Columns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Derived Columns<a class="anchor-link" href="#Derived-Columns"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+
+select * from film
+limit 1;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+1 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>film_id</th>
+        <th>title</th>
+        <th>description</th>
+        <th>release_year</th>
+        <th>language_id</th>
+        <th>original_language_id</th>
+        <th>rental_duration</th>
+        <th>rental_rate</th>
+        <th>length</th>
+        <th>replacement_cost</th>
+        <th>rating</th>
+        <th>last_update</th>
+        <th>special_features</th>
+        <th>fulltext</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>ACADEMY DINOSAUR</td>
+        <td>A Epic Drama of a Feminist And a Mad Scientist who must Battle a Teacher in The Canadian Rockies</td>
+        <td>2006</td>
+        <td>1</td>
+        <td>None</td>
+        <td>6</td>
+        <td>0.99</td>
+        <td>86</td>
+        <td>20.99</td>
+        <td>PG</td>
+        <td>2007-09-10 17:46:03.905795</td>
+        <td>['Deleted Scenes', 'Behind the Scenes']</td>
+        <td>'academi':1 'battl':15 'canadian':20 'dinosaur':2 'drama':5 'epic':4 'feminist':8 'mad':11 'must':14 'rocki':21 'scientist':12 'teacher':17</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>Converting rental duration (days) to rental_duration (hours)</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select 
+    title, 
+    rental_duration, 
+    (rental_duration * 24) as "rental duration (hrs)"
+from film
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rental_duration</th>
+        <th>rental duration (hrs)</th>
+    </tr>
+    <tr>
+        <td>ACADEMY DINOSAUR</td>
+        <td>6</td>
+        <td>144</td>
+    </tr>
+    <tr>
+        <td>ACE GOLDFINGER</td>
+        <td>3</td>
+        <td>72</td>
+    </tr>
+    <tr>
+        <td>ADAPTATION HOLES</td>
+        <td>7</td>
+        <td>168</td>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>5</td>
+        <td>120</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>6</td>
+        <td>144</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select rental_date, return_date from rental
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>rental_date</th>
+        <th>return_date</th>
+    </tr>
+    <tr>
+        <td>2005-05-24 22:54:33</td>
+        <td>2005-05-28 19:40:33</td>
+    </tr>
+    <tr>
+        <td>2005-05-24 23:03:39</td>
+        <td>2005-06-01 22:12:39</td>
+    </tr>
+    <tr>
+        <td>2005-05-24 23:04:41</td>
+        <td>2005-06-03 01:43:41</td>
+    </tr>
+    <tr>
+        <td>2005-05-24 23:05:21</td>
+        <td>2005-06-02 04:33:21</td>
+    </tr>
+    <tr>
+        <td>2005-05-24 23:08:07</td>
+        <td>2005-05-27 01:32:07</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>Computing the difference between return_date and rental_date</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select rental_date, return_date, return_date - rental_date as "duration" from rental
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>rental_date</th>
+        <th>return_date</th>
+        <th>duration</th>
+    </tr>
+    <tr>
+        <td>2005-05-24 22:54:33</td>
+        <td>2005-05-28 19:40:33</td>
+        <td>3 days, 20:46:00</td>
+    </tr>
+    <tr>
+        <td>2005-05-24 23:03:39</td>
+        <td>2005-06-01 22:12:39</td>
+        <td>7 days, 23:09:00</td>
+    </tr>
+    <tr>
+        <td>2005-05-24 23:04:41</td>
+        <td>2005-06-03 01:43:41</td>
+        <td>9 days, 2:39:00</td>
+    </tr>
+    <tr>
+        <td>2005-05-24 23:05:21</td>
+        <td>2005-06-02 04:33:21</td>
+        <td>8 days, 5:28:00</td>
+    </tr>
+    <tr>
+        <td>2005-05-24 23:08:07</td>
+        <td>2005-05-27 01:32:07</td>
+        <td>2 days, 2:24:00</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>Concatenating two column </li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+
+select
+    first_name,
+    last_name,
+    first_name || ' ' || last_name as "full name"
+from customer
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>full name</th>
+    </tr>
+    <tr>
+        <td>MARY</td>
+        <td>SMITH</td>
+        <td>MARY SMITH</td>
+    </tr>
+    <tr>
+        <td>PATRICIA</td>
+        <td>JOHNSON</td>
+        <td>PATRICIA JOHNSON</td>
+    </tr>
+    <tr>
+        <td>LINDA</td>
+        <td>WILLIAMS</td>
+        <td>LINDA WILLIAMS</td>
+    </tr>
+    <tr>
+        <td>BARBARA</td>
+        <td>JONES</td>
+        <td>BARBARA JONES</td>
+    </tr>
+    <tr>
+        <td>ELIZABETH</td>
+        <td>BROWN</td>
+        <td>ELIZABETH BROWN</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>initcap converts the first letter or each word to uppercase.</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+
+select
+    first_name,
+    last_name,
+    initcap(first_name || ' ' || last_name) as "full name"
+from customer
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>full name</th>
+    </tr>
+    <tr>
+        <td>MARY</td>
+        <td>SMITH</td>
+        <td>Mary Smith</td>
+    </tr>
+    <tr>
+        <td>PATRICIA</td>
+        <td>JOHNSON</td>
+        <td>Patricia Johnson</td>
+    </tr>
+    <tr>
+        <td>LINDA</td>
+        <td>WILLIAMS</td>
+        <td>Linda Williams</td>
+    </tr>
+    <tr>
+        <td>BARBARA</td>
+        <td>JONES</td>
+        <td>Barbara Jones</td>
+    </tr>
+    <tr>
+        <td>ELIZABETH</td>
+        <td>BROWN</td>
+        <td>Elizabeth Brown</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Filtering-with-WHERE">
+<a class="anchor" href="#Filtering-with-WHERE" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filtering with WHERE<a class="anchor-link" href="#Filtering-with-WHERE"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * 
+from film
+limit 1;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+1 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>film_id</th>
+        <th>title</th>
+        <th>description</th>
+        <th>release_year</th>
+        <th>language_id</th>
+        <th>original_language_id</th>
+        <th>rental_duration</th>
+        <th>rental_rate</th>
+        <th>length</th>
+        <th>replacement_cost</th>
+        <th>rating</th>
+        <th>last_update</th>
+        <th>special_features</th>
+        <th>fulltext</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>ACADEMY DINOSAUR</td>
+        <td>A Epic Drama of a Feminist And a Mad Scientist who must Battle a Teacher in The Canadian Rockies</td>
+        <td>2006</td>
+        <td>1</td>
+        <td>None</td>
+        <td>6</td>
+        <td>0.99</td>
+        <td>86</td>
+        <td>20.99</td>
+        <td>PG</td>
+        <td>2007-09-10 17:46:03.905795</td>
+        <td>['Deleted Scenes', 'Behind the Scenes']</td>
+        <td>'academi':1 'battl':15 'canadian':20 'dinosaur':2 'drama':5 'epic':4 'feminist':8 'mad':11 'must':14 'rocki':21 'scientist':12 'teacher':17</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>List of available comparison operators :=, &lt;, &gt;, &lt;=, &gt;=, != or &lt;&gt;</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>grabbing title and rental duration where rental duration is equal to 5</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, rental_duration
+from film
+where rental_duration = 5
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rental_duration</th>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>ALIEN CENTER</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>ANTHEM LUKE</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>ANTITRUST TOMATOES</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>APACHE DIVINE</td>
+        <td>5</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * from customer
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+        <th>store_id</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+        <th>address_id</th>
+        <th>activebool</th>
+        <th>create_date</th>
+        <th>last_update</th>
+        <th>active</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>MARY</td>
+        <td>SMITH</td>
+        <td>MARY.SMITH@sakilacustomer.org</td>
+        <td>5</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>1</td>
+        <td>PATRICIA</td>
+        <td>JOHNSON</td>
+        <td>PATRICIA.JOHNSON@sakilacustomer.org</td>
+        <td>6</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>1</td>
+        <td>LINDA</td>
+        <td>WILLIAMS</td>
+        <td>LINDA.WILLIAMS@sakilacustomer.org</td>
+        <td>7</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>2</td>
+        <td>BARBARA</td>
+        <td>JONES</td>
+        <td>BARBARA.JONES@sakilacustomer.org</td>
+        <td>8</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>1</td>
+        <td>ELIZABETH</td>
+        <td>BROWN</td>
+        <td>ELIZABETH.BROWN@sakilacustomer.org</td>
+        <td>9</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>when writing in string literals use single quotes</li>
+<li>double quotes are only used for table or column identifiers</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * from customer
+where first_name = 'MARY';
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+1 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+        <th>store_id</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+        <th>address_id</th>
+        <th>activebool</th>
+        <th>create_date</th>
+        <th>last_update</th>
+        <th>active</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>MARY</td>
+        <td>SMITH</td>
+        <td>MARY.SMITH@sakilacustomer.org</td>
+        <td>5</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * from customer
+where lower(first_name) = 'mary';
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+1 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+        <th>store_id</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+        <th>address_id</th>
+        <th>activebool</th>
+        <th>create_date</th>
+        <th>last_update</th>
+        <th>active</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>MARY</td>
+        <td>SMITH</td>
+        <td>MARY.SMITH@sakilacustomer.org</td>
+        <td>5</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>grab rows where rental date is greater or equal than '2006-01-01'</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * 
+from rental 
+where rental_date &gt;= '2006-01-01'
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>rental_id</th>
+        <th>rental_date</th>
+        <th>inventory_id</th>
+        <th>customer_id</th>
+        <th>return_date</th>
+        <th>staff_id</th>
+        <th>last_update</th>
+    </tr>
+    <tr>
+        <td>13421</td>
+        <td>2006-02-14 15:16:03</td>
+        <td>9</td>
+        <td>366</td>
+        <td>None</td>
+        <td>1</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+        <td>15542</td>
+        <td>2006-02-14 15:16:03</td>
+        <td>21</td>
+        <td>111</td>
+        <td>None</td>
+        <td>1</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+        <td>15458</td>
+        <td>2006-02-14 15:16:03</td>
+        <td>25</td>
+        <td>590</td>
+        <td>None</td>
+        <td>2</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+        <td>15294</td>
+        <td>2006-02-14 15:16:03</td>
+        <td>70</td>
+        <td>108</td>
+        <td>None</td>
+        <td>1</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+        <td>12988</td>
+        <td>2006-02-14 15:16:03</td>
+        <td>81</td>
+        <td>236</td>
+        <td>None</td>
+        <td>2</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>grab row value where rental date is exactly '2005-05-24 22:54:33'</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * 
+from rental 
+where rental_date = '2005-05-24 22:54:33';
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+1 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>rental_id</th>
+        <th>rental_date</th>
+        <th>inventory_id</th>
+        <th>customer_id</th>
+        <th>return_date</th>
+        <th>staff_id</th>
+        <th>last_update</th>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>2005-05-24 22:54:33</td>
+        <td>1525</td>
+        <td>459</td>
+        <td>2005-05-28 19:40:33</td>
+        <td>1</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>grab row value where rental date is greater than '2005-05-24 22:54:33'</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * 
+from rental 
+where rental_date &gt; '2005-05-24 22:54:33'
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>rental_id</th>
+        <th>rental_date</th>
+        <th>inventory_id</th>
+        <th>customer_id</th>
+        <th>return_date</th>
+        <th>staff_id</th>
+        <th>last_update</th>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>2005-05-24 23:03:39</td>
+        <td>1711</td>
+        <td>408</td>
+        <td>2005-06-01 22:12:39</td>
+        <td>1</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>2005-05-24 23:04:41</td>
+        <td>2452</td>
+        <td>333</td>
+        <td>2005-06-03 01:43:41</td>
+        <td>2</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>2005-05-24 23:05:21</td>
+        <td>2079</td>
+        <td>222</td>
+        <td>2005-06-02 04:33:21</td>
+        <td>1</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>2005-05-24 23:08:07</td>
+        <td>2792</td>
+        <td>549</td>
+        <td>2005-05-27 01:32:07</td>
+        <td>1</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>2005-05-24 23:11:53</td>
+        <td>3995</td>
+        <td>269</td>
+        <td>2005-05-29 20:34:53</td>
+        <td>2</td>
+        <td>2006-02-16 02:30:53</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="AND,-OR,-and-NOT">
+<a class="anchor" href="#AND,-OR,-and-NOT" aria-hidden="true"><span class="octicon octicon-link"></span></a>AND, OR, and NOT<a class="anchor-link" href="#AND,-OR,-and-NOT"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, rental_duration, length
+from film
+where length &gt; 100 and rental_duration = 5
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rental_duration</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>5</td>
+        <td>117</td>
+    </tr>
+    <tr>
+        <td>ANTITRUST TOMATOES</td>
+        <td>5</td>
+        <td>168</td>
+    </tr>
+    <tr>
+        <td>APOLLO TEEN</td>
+        <td>5</td>
+        <td>153</td>
+    </tr>
+    <tr>
+        <td>ARTIST COLDBLOODED</td>
+        <td>5</td>
+        <td>170</td>
+    </tr>
+    <tr>
+        <td>ATTACKS HATE</td>
+        <td>5</td>
+        <td>113</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, rental_duration, length
+from film
+where length &gt; 100 or rental_duration = 5
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rental_duration</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>5</td>
+        <td>117</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>6</td>
+        <td>130</td>
+    </tr>
+    <tr>
+        <td>AGENT TRUMAN</td>
+        <td>3</td>
+        <td>169</td>
+    </tr>
+    <tr>
+        <td>ALABAMA DEVIL</td>
+        <td>3</td>
+        <td>114</td>
+    </tr>
+    <tr>
+        <td>ALAMO VIDEOTAPE</td>
+        <td>6</td>
+        <td>126</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, rental_duration, length
+from film
+where length &gt; 100 
+    or rental_duration = 5
+    or left(title, 1) = 'A'
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rental_duration</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>ACADEMY DINOSAUR</td>
+        <td>6</td>
+        <td>86</td>
+    </tr>
+    <tr>
+        <td>ACE GOLDFINGER</td>
+        <td>3</td>
+        <td>48</td>
+    </tr>
+    <tr>
+        <td>ADAPTATION HOLES</td>
+        <td>7</td>
+        <td>50</td>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>5</td>
+        <td>117</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>6</td>
+        <td>130</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, rental_duration, length
+from film
+where (length &gt; 100 or rental_duration = 5)
+    and left(title, 1) = 'A'
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rental_duration</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>5</td>
+        <td>117</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>6</td>
+        <td>130</td>
+    </tr>
+    <tr>
+        <td>AGENT TRUMAN</td>
+        <td>3</td>
+        <td>169</td>
+    </tr>
+    <tr>
+        <td>ALABAMA DEVIL</td>
+        <td>3</td>
+        <td>114</td>
+    </tr>
+    <tr>
+        <td>ALAMO VIDEOTAPE</td>
+        <td>6</td>
+        <td>126</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, rental_duration, length
+from film
+where not rental_duration = 5
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rental_duration</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>ACADEMY DINOSAUR</td>
+        <td>6</td>
+        <td>86</td>
+    </tr>
+    <tr>
+        <td>ACE GOLDFINGER</td>
+        <td>3</td>
+        <td>48</td>
+    </tr>
+    <tr>
+        <td>ADAPTATION HOLES</td>
+        <td>7</td>
+        <td>50</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>6</td>
+        <td>130</td>
+    </tr>
+    <tr>
+        <td>AGENT TRUMAN</td>
+        <td>3</td>
+        <td>169</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Null-Handling">
+<a class="anchor" href="#Null-Handling" aria-hidden="true"><span class="octicon octicon-link"></span></a>Null Handling<a class="anchor-link" href="#Null-Handling"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>selects rows where email is null</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * from customer
+where email is null;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+2 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+        <th>store_id</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+        <th>address_id</th>
+        <th>activebool</th>
+        <th>create_date</th>
+        <th>last_update</th>
+        <th>active</th>
+    </tr>
+    <tr>
+        <td>53</td>
+        <td>1</td>
+        <td>HEATHER</td>
+        <td>MORRIS</td>
+        <td>None</td>
+        <td>57</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>101</td>
+        <td>1</td>
+        <td>PEGGY</td>
+        <td>MYERS</td>
+        <td>None</td>
+        <td>105</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>selects rows where email is not null</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select * from customer
+where email is not null
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+        <th>store_id</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+        <th>address_id</th>
+        <th>activebool</th>
+        <th>create_date</th>
+        <th>last_update</th>
+        <th>active</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>MARY</td>
+        <td>SMITH</td>
+        <td>MARY.SMITH@sakilacustomer.org</td>
+        <td>5</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>1</td>
+        <td>PATRICIA</td>
+        <td>JOHNSON</td>
+        <td>PATRICIA.JOHNSON@sakilacustomer.org</td>
+        <td>6</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>1</td>
+        <td>LINDA</td>
+        <td>WILLIAMS</td>
+        <td>LINDA.WILLIAMS@sakilacustomer.org</td>
+        <td>7</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>2</td>
+        <td>BARBARA</td>
+        <td>JONES</td>
+        <td>BARBARA.JONES@sakilacustomer.org</td>
+        <td>8</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>1</td>
+        <td>ELIZABETH</td>
+        <td>BROWN</td>
+        <td>ELIZABETH.BROWN@sakilacustomer.org</td>
+        <td>9</td>
+        <td>True</td>
+        <td>2006-02-14</td>
+        <td>2006-02-15 09:57:20</td>
+        <td>1</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>selects rating where rating is not PG including where rating is null</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, rating
+from film 
+where rating != 'PG'
+    or rating is null
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rating</th>
+    </tr>
+    <tr>
+        <td>ACE GOLDFINGER</td>
+        <td>G</td>
+    </tr>
+    <tr>
+        <td>ADAPTATION HOLES</td>
+        <td>NC-17</td>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>G</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>G</td>
+    </tr>
+    <tr>
+        <td>AIRPLANE SIERRA</td>
+        <td>PG-13</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="IN,-BETWEEEN,-and-LIKE">
+<a class="anchor" href="#IN,-BETWEEEN,-and-LIKE" aria-hidden="true"><span class="octicon octicon-link"></span></a>IN, BETWEEEN, and LIKE<a class="anchor-link" href="#IN,-BETWEEEN,-and-LIKE"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>selecting customer_id between 1 and 5</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select customer_id
+from customer
+where customer_id between 1 and 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+    </tr>
+    <tr>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>5</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>selecting customer_id not between 1 and 5</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select customer_id
+from customer
+where customer_id not between 1 and 5
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+    </tr>
+    <tr>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>7</td>
+    </tr>
+    <tr>
+        <td>8</td>
+    </tr>
+    <tr>
+        <td>9</td>
+    </tr>
+    <tr>
+        <td>10</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select customer_id
+from customer
+where customer_id in (1, 5, 8);
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+3 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+    </tr>
+    <tr>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>8</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select customer_id
+from customer
+where customer_id not in (1, 5, 8)
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+    </tr>
+    <tr>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>7</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name
+from customer
+where left(first_name, 1) in ('A', 'F', 'J')
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+    </tr>
+    <tr>
+        <td>JENNIFER</td>
+    </tr>
+    <tr>
+        <td>JESSICA</td>
+    </tr>
+    <tr>
+        <td>ANGELA</td>
+    </tr>
+    <tr>
+        <td>AMY</td>
+    </tr>
+    <tr>
+        <td>ANNA</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>the first_name has to match the pattern starting with the letter M</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name from customer
+where first_name like 'M%'
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+    </tr>
+    <tr>
+        <td>MARY</td>
+    </tr>
+    <tr>
+        <td>MARIA</td>
+    </tr>
+    <tr>
+        <td>MARGARET</td>
+    </tr>
+    <tr>
+        <td>MICHELLE</td>
+    </tr>
+    <tr>
+        <td>MELISSA</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>return the first_name where the third character in the string starts with the letter M</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name from customer
+where first_name like '__M%'
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+    </tr>
+    <tr>
+        <td>KIMBERLY</td>
+    </tr>
+    <tr>
+        <td>PAMELA</td>
+    </tr>
+    <tr>
+        <td>TAMMY</td>
+    </tr>
+    <tr>
+        <td>KIM</td>
+    </tr>
+    <tr>
+        <td>EMMA</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>disregards case-sensitivity</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name from customer
+where first_name ilike '__m%'
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+    </tr>
+    <tr>
+        <td>KIMBERLY</td>
+    </tr>
+    <tr>
+        <td>PAMELA</td>
+    </tr>
+    <tr>
+        <td>TAMMY</td>
+    </tr>
+    <tr>
+        <td>KIM</td>
+    </tr>
+    <tr>
+        <td>EMMA</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="ORDER-BY">
+<a class="anchor" href="#ORDER-BY" aria-hidden="true"><span class="octicon octicon-link"></span></a>ORDER BY<a class="anchor-link" href="#ORDER-BY"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>films have been sorted by length desc</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, length
+from film
+order by length desc
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>VIRGIN DAISY</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>BEAST HUNCHBACK</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>DARN FORRESTER</td>
+        <td>185</td>
+    </tr>
+    <tr>
+        <td>CHICAGO NORTH</td>
+        <td>185</td>
+    </tr>
+    <tr>
+        <td>CONTROL ANTHEM</td>
+        <td>185</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>films have been sorted by length desc</li>
+<li>so films with the longest length</li>
+<li>nulls have been put last</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, length
+from film
+order by length desc nulls last
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>GANGS PRIDE</td>
+        <td>185</td>
+    </tr>
+    <tr>
+        <td>CONTROL ANTHEM</td>
+        <td>185</td>
+    </tr>
+    <tr>
+        <td>DARN FORRESTER</td>
+        <td>185</td>
+    </tr>
+    <tr>
+        <td>CHICAGO NORTH</td>
+        <td>185</td>
+    </tr>
+    <tr>
+        <td>HOME PITY</td>
+        <td>185</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>films have been sorted first by length, but if any two films have the same length then they are sorted by title</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, length
+from film
+order by length, title
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>APOCALYPSE FLAMINGOS</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>ALIEN CENTER</td>
+        <td>46</td>
+    </tr>
+    <tr>
+        <td>IRON MOON</td>
+        <td>46</td>
+    </tr>
+    <tr>
+        <td>KWAI HOMEWARD</td>
+        <td>46</td>
+    </tr>
+    <tr>
+        <td>LABYRINTH LEAGUE</td>
+        <td>46</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>sort by length desc, but if any of the films have the same length then we sort by title</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, length
+from film
+order by length desc, title asc
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>BEAST HUNCHBACK</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>VIRGIN DAISY</td>
+        <td>None</td>
+    </tr>
+    <tr>
+        <td>CHICAGO NORTH</td>
+        <td>185</td>
+    </tr>
+    <tr>
+        <td>CONTROL ANTHEM</td>
+        <td>185</td>
+    </tr>
+    <tr>
+        <td>DARN FORRESTER</td>
+        <td>185</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>order by the last character in the title then order by length desc</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, length
+from film
+order by right(title, 1), length desc
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>length</th>
+    </tr>
+    <tr>
+        <td>BAKED CLEOPATRA</td>
+        <td>182</td>
+    </tr>
+    <tr>
+        <td>LESSON CLEOPATRA</td>
+        <td>167</td>
+    </tr>
+    <tr>
+        <td>FINDING ANACONDA</td>
+        <td>156</td>
+    </tr>
+    <tr>
+        <td>COLOR PHILADELPHIA</td>
+        <td>149</td>
+    </tr>
+    <tr>
+        <td>FIREBALL PHILADELPHIA</td>
+        <td>148</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, rental_rate, replacement_cost, ceil(replacement_cost / rental_rate) as break_even
+from film
+order by break_even desc
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rental_rate</th>
+        <th>replacement_cost</th>
+        <th>break_even</th>
+    </tr>
+    <tr>
+        <td>BONNIE HOLOCAUST</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+    <tr>
+        <td>CLOCKWORK PARADISE</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+    <tr>
+        <td>BALLROOM MOCKINGBIRD</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+    <tr>
+        <td>ARABIA DOGMA</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+    <tr>
+        <td>CLYDE THEORY</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SQL-Order-of-execution">
+<a class="anchor" href="#SQL-Order-of-execution" aria-hidden="true"><span class="octicon octicon-link"></span></a>SQL Order of execution<a class="anchor-link" href="#SQL-Order-of-execution"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The processing of a SQL statement:</p>
+<blockquote>
+<ul>
+<li>from :pick the tables to be queried&gt; - where :filter the rows&gt; - group by :aggregate rows together&gt; - having :filter the aggregates&gt; - select :select the columns that appear in the output&gt; - order by :sorts the rows&gt; - limit :limit the number of return rows
+F-W-GB-H-S-OB-L</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, rental_rate, replacement_cost, ceil(replacement_cost / rental_rate) as break_even
+from film
+order by ceil(replacement_cost / rental_rate) desc
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>rental_rate</th>
+        <th>replacement_cost</th>
+        <th>break_even</th>
+    </tr>
+    <tr>
+        <td>BONNIE HOLOCAUST</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+    <tr>
+        <td>CLOCKWORK PARADISE</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+    <tr>
+        <td>BALLROOM MOCKINGBIRD</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+    <tr>
+        <td>ARABIA DOGMA</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+    <tr>
+        <td>CLYDE THEORY</td>
+        <td>0.99</td>
+        <td>29.99</td>
+        <td>31</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="LIMIT-and-OFFSET">
+<a class="anchor" href="#LIMIT-and-OFFSET" aria-hidden="true"><span class="octicon octicon-link"></span></a>LIMIT and OFFSET<a class="anchor-link" href="#LIMIT-and-OFFSET"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>limit acts as a cap for the maximum amount of rows</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name, last_name
+from customer
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+    </tr>
+    <tr>
+        <td>MARY</td>
+        <td>SMITH</td>
+    </tr>
+    <tr>
+        <td>PATRICIA</td>
+        <td>JOHNSON</td>
+    </tr>
+    <tr>
+        <td>LINDA</td>
+        <td>WILLIAMS</td>
+    </tr>
+    <tr>
+        <td>BARBARA</td>
+        <td>JONES</td>
+    </tr>
+    <tr>
+        <td>ELIZABETH</td>
+        <td>BROWN</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name, last_name
+from customer
+order by first_name
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+    </tr>
+    <tr>
+        <td>AARON</td>
+        <td>SELBY</td>
+    </tr>
+    <tr>
+        <td>ADAM</td>
+        <td>GOOCH</td>
+    </tr>
+    <tr>
+        <td>ADRIAN</td>
+        <td>CLARY</td>
+    </tr>
+    <tr>
+        <td>AGNES</td>
+        <td>BISHOP</td>
+    </tr>
+    <tr>
+        <td>ALAN</td>
+        <td>KAHN</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>limit 5 offset 0 - skip 0 rows then return the next 5</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name, last_name
+from customer
+order by first_name
+limit 5 offset 0;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+    </tr>
+    <tr>
+        <td>AARON</td>
+        <td>SELBY</td>
+    </tr>
+    <tr>
+        <td>ADAM</td>
+        <td>GOOCH</td>
+    </tr>
+    <tr>
+        <td>ADRIAN</td>
+        <td>CLARY</td>
+    </tr>
+    <tr>
+        <td>AGNES</td>
+        <td>BISHOP</td>
+    </tr>
+    <tr>
+        <td>ALAN</td>
+        <td>KAHN</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>limit 5 offset 1 - skip 1 rows then return the next 5</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select first_name, last_name
+from customer
+order by first_name
+limit 5 offset 1;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+    </tr>
+    <tr>
+        <td>ADAM</td>
+        <td>GOOCH</td>
+    </tr>
+    <tr>
+        <td>ADRIAN</td>
+        <td>CLARY</td>
+    </tr>
+    <tr>
+        <td>AGNES</td>
+        <td>BISHOP</td>
+    </tr>
+    <tr>
+        <td>ALAN</td>
+        <td>KAHN</td>
+    </tr>
+    <tr>
+        <td>ALBERT</td>
+        <td>CROUSE</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DISTINCT">
+<a class="anchor" href="#DISTINCT" aria-hidden="true"><span class="octicon octicon-link"></span></a>DISTINCT<a class="anchor-link" href="#DISTINCT"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+
+select * from payment
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>payment_id</th>
+        <th>customer_id</th>
+        <th>staff_id</th>
+        <th>rental_id</th>
+        <th>amount</th>
+        <th>payment_date</th>
+    </tr>
+    <tr>
+        <td>16050</td>
+        <td>269</td>
+        <td>2</td>
+        <td>7</td>
+        <td>1.99</td>
+        <td>2007-01-24 21:40:19.996577</td>
+    </tr>
+    <tr>
+        <td>16051</td>
+        <td>269</td>
+        <td>1</td>
+        <td>98</td>
+        <td>0.99</td>
+        <td>2007-01-25 15:16:50.996577</td>
+    </tr>
+    <tr>
+        <td>16052</td>
+        <td>269</td>
+        <td>2</td>
+        <td>678</td>
+        <td>6.99</td>
+        <td>2007-01-28 21:44:14.996577</td>
+    </tr>
+    <tr>
+        <td>16053</td>
+        <td>269</td>
+        <td>2</td>
+        <td>703</td>
+        <td>0.99</td>
+        <td>2007-01-29 00:58:02.996577</td>
+    </tr>
+    <tr>
+        <td>16054</td>
+        <td>269</td>
+        <td>1</td>
+        <td>750</td>
+        <td>4.99</td>
+        <td>2007-01-29 08:10:06.996577</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+
+select customer_id from payment
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+    </tr>
+    <tr>
+        <td>269</td>
+    </tr>
+    <tr>
+        <td>269</td>
+    </tr>
+    <tr>
+        <td>269</td>
+    </tr>
+    <tr>
+        <td>269</td>
+    </tr>
+    <tr>
+        <td>269</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<ul>
+<li>distinct allows us to remove all the duplicate rows</li>
+</ul>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span> 
+
+select distinct customer_id from payment
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+    </tr>
+    <tr>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>5</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select customer_id, staff_id from payment
+where customer_id = 269
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+        <th>staff_id</th>
+    </tr>
+    <tr>
+        <td>269</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>269</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>269</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>269</td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>269</td>
+        <td>1</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select distinct customer_id, staff_id from payment
+where customer_id = 269;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+2 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>customer_id</th>
+        <th>staff_id</th>
+    </tr>
+    <tr>
+        <td>269</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>269</td>
+        <td>2</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select distinct
+    date_part('month', payment_date) as month,
+    date_part('year', payment_date) as year
+from payment
+order by year, month;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>month</th>
+        <th>year</th>
+    </tr>
+    <tr>
+        <td>1.0</td>
+        <td>2007.0</td>
+    </tr>
+    <tr>
+        <td>2.0</td>
+        <td>2007.0</td>
+    </tr>
+    <tr>
+        <td>3.0</td>
+        <td>2007.0</td>
+    </tr>
+    <tr>
+        <td>4.0</td>
+        <td>2007.0</td>
+    </tr>
+    <tr>
+        <td>5.0</td>
+        <td>2007.0</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Case-Expressions">
+<a class="anchor" href="#Case-Expressions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Case Expressions<a class="anchor-link" href="#Case-Expressions"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, length,
+    case
+        when length &lt;= 60 then 'short'
+        when length &gt; 60 and length &lt;= 120 then 'long'
+        when length &gt; 120 then 'very long'
+    end as length_description
+from film
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>length</th>
+        <th>length_description</th>
+    </tr>
+    <tr>
+        <td>ACADEMY DINOSAUR</td>
+        <td>86</td>
+        <td>long</td>
+    </tr>
+    <tr>
+        <td>ACE GOLDFINGER</td>
+        <td>48</td>
+        <td>short</td>
+    </tr>
+    <tr>
+        <td>ADAPTATION HOLES</td>
+        <td>50</td>
+        <td>short</td>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>117</td>
+        <td>long</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>130</td>
+        <td>very long</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, length,
+    case
+        when length &lt;= 60 then 'short'
+        when length &gt; 60 and length &lt;= 120 then 'long'
+        when length &gt; 120 then 'very long'
+        else 'unknown'
+    end as length_description
+from film
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>length</th>
+        <th>length_description</th>
+    </tr>
+    <tr>
+        <td>ACADEMY DINOSAUR</td>
+        <td>86</td>
+        <td>long</td>
+    </tr>
+    <tr>
+        <td>ACE GOLDFINGER</td>
+        <td>48</td>
+        <td>short</td>
+    </tr>
+    <tr>
+        <td>ADAPTATION HOLES</td>
+        <td>50</td>
+        <td>short</td>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>117</td>
+        <td>long</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>130</td>
+        <td>very long</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, length, rating,
+    case rating
+        when 'G' then 'kid friendly'
+        when 'PG' then 'kid friendly'
+        else 'not kid friendly'
+    end as kid_friendly_rating
+from film
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>length</th>
+        <th>rating</th>
+        <th>kid_friendly_rating</th>
+    </tr>
+    <tr>
+        <td>ACADEMY DINOSAUR</td>
+        <td>86</td>
+        <td>PG</td>
+        <td>kid friendly</td>
+    </tr>
+    <tr>
+        <td>ACE GOLDFINGER</td>
+        <td>48</td>
+        <td>G</td>
+        <td>kid friendly</td>
+    </tr>
+    <tr>
+        <td>ADAPTATION HOLES</td>
+        <td>50</td>
+        <td>NC-17</td>
+        <td>not kid friendly</td>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>117</td>
+        <td>G</td>
+        <td>kid friendly</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>130</td>
+        <td>G</td>
+        <td>kid friendly</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">sql</span>
+
+select title, length, rating,
+    case 
+        when rating='G' then 'kid friendly'
+        when rating='PG' then 'kid friendly'
+        else 'not kid friendly'
+    end as kid_friendly_rating
+from film
+limit 5;
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre> * postgresql://postgres:***@localhost/videoezy
+5 rows affected.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table>
+    <tr>
+        <th>title</th>
+        <th>length</th>
+        <th>rating</th>
+        <th>kid_friendly_rating</th>
+    </tr>
+    <tr>
+        <td>ACADEMY DINOSAUR</td>
+        <td>86</td>
+        <td>PG</td>
+        <td>kid friendly</td>
+    </tr>
+    <tr>
+        <td>ACE GOLDFINGER</td>
+        <td>48</td>
+        <td>G</td>
+        <td>kid friendly</td>
+    </tr>
+    <tr>
+        <td>ADAPTATION HOLES</td>
+        <td>50</td>
+        <td>NC-17</td>
+        <td>not kid friendly</td>
+    </tr>
+    <tr>
+        <td>AFFAIR PREJUDICE</td>
+        <td>117</td>
+        <td>G</td>
+        <td>kid friendly</td>
+    </tr>
+    <tr>
+        <td>AFRICAN EGG</td>
+        <td>130</td>
+        <td>G</td>
+        <td>kid friendly</td>
+    </tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/hello_fastpages/jupyter/2021/01/04/query-fundamentals-notes.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/hello_fastpages/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/hello_fastpages/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/hello_fastpages/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/hello_fastpages/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/hello_fastpages/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
